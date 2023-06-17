@@ -1,6 +1,7 @@
 import { Injectable, Logger } from '@nestjs/common'
 import { HttpService } from '@nestjs/axios'
 import { DEEZER_API } from 'src/constants'
+import { PaginationDto } from './dto'
 
 @Injectable()
 export class DeezerService {
@@ -45,8 +46,17 @@ export class DeezerService {
     return res.data
   }
 
-  async artist(id, type) {
-    const res = await this.axiosRef.get(`${DEEZER_API.artist}/${id}/${type ?? ''}`)
+  async artist(id, type, pagination: PaginationDto) {
+    let res
+
+    if (pagination && type) {
+      const limit = pagination.limit ?? 10
+      const page = pagination.page ?? 0
+      const pag = `limit=${limit}&index=${page * limit}`
+      res = await this.axiosRef.get(`${DEEZER_API.artist}/${id}/${type}?${pag}`)
+    } else {
+      res = await this.axiosRef.get(`${DEEZER_API.artist}/${id}/${type ?? ''}`)
+    }
     return res.data
   }
 

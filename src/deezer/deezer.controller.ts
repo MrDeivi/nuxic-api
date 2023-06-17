@@ -62,8 +62,8 @@ export class DeezerController {
   }
 
   @Get('artist/:id/:type?')
-  artist(@Param('id', ParseIntPipe) id, @Param('type', ArtistDataType) type) {
-    return this.deezerService.artist(id, type)
+  artist(@Query() pagination: PaginationDto, @Param('id', ParseIntPipe) id, @Param('type', ArtistDataType) type) {
+    return this.deezerService.artist(id, type, pagination)
   }
 
   @Get('playlists')
