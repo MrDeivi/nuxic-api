@@ -10,8 +10,13 @@ export class DeezerService {
     return this.httpService.axiosRef
   }
 
-  async genre() {
+  async genres() {
     const res = await this.axiosRef.get(`${DEEZER_API.genre}`)
+    return res.data
+  }
+
+  async genre(id) {
+    const res = await this.axiosRef.get(`${DEEZER_API.genre}/${id}`)
     return res.data
   }
 

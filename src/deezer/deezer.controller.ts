@@ -12,8 +12,13 @@ export class DeezerController {
   constructor(private deezerService: DeezerService) {}
 
   @Get('genre')
-  genre() {
-    return this.deezerService.genre()
+  genres() {
+    return this.deezerService.genres()
+  }
+
+  @Get('genre/:id')
+  genre(@Param('id', ParseIntPipe) id) {
+    return this.deezerService.genre(id)
   }
 
   @Get('genre/:id/artists')
