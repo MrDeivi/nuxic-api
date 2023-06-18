@@ -21,8 +21,8 @@ export class DeezerService {
     return res.data
   }
 
-  async genreArtists(id) {
-    const res = await this.axiosRef.get(`${DEEZER_API.genre}/${id}/artists`)
+  async genreArtists(id, page = 0, limit = 10) {
+    const res = await this.axiosRef.get(`${DEEZER_API.genre}/${id}/artists?limit=${limit}&index=${page * limit}`)
     return res.data
   }
 

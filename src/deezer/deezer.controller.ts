@@ -22,8 +22,8 @@ export class DeezerController {
   }
 
   @Get('genre/:id/artists')
-  genreArtists(@Param('id', ParseIntPipe) id) {
-    return this.deezerService.genreArtists(id)
+  genreArtists(@Query() pagination: PaginationDto, @Param('id', ParseIntPipe) id) {
+    return this.deezerService.genreArtists(id, pagination.page, pagination.limit)
   }
 
   @Get('search/:type?')
