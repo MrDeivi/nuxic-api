@@ -31,8 +31,16 @@ export class DeezerService {
     return res.data
   }
 
-  async radio(type) {
-    const res = await this.axiosRef.get(`${DEEZER_API.radio}/${type ?? ''}`)
+  async radio(id) {
+    const res = await this.axiosRef.get(`${DEEZER_API.radio}/${id}`)
+    return res.data
+  }
+  async radioTop(page = 0, limit = 10) {
+    const res = await this.axiosRef.get(`${DEEZER_API.radio}/top?limit=${limit}&index=${page * limit}`)
+    return res.data
+  }
+  async radioTracks(id, page = 0, limit = 10) {
+    const res = await this.axiosRef.get(`${DEEZER_API.radio}/${id}/tracks?limit=${limit}&index=${page * limit}`)
     return res.data
   }
 

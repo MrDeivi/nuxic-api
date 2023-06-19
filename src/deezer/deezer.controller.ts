@@ -31,9 +31,19 @@ export class DeezerController {
     return this.deezerService.search(search, type)
   }
 
-  @Get('radio/:type?')
-  radio(@Param('type', RadioDataType) type) {
-    return this.deezerService.radio(type)
+  @Get('radio/top')
+  radioTop(@Query() pagination: PaginationDto) {
+    return this.deezerService.radioTop(pagination.page, pagination.limit)
+  }
+
+  @Get('radio/:id')
+  radio(@Param('id', ParseIntPipe) id) {
+    return this.deezerService.radio(id)
+  }
+
+  @Get('radio/:id?/tracks')
+  radioTracks(@Query() pagination: PaginationDto, @Param('id', ParseIntPipe) id) {
+    return this.deezerService.radioTracks(id, pagination.page, pagination.limit)
   }
 
   @Get('artists')
