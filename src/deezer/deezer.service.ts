@@ -44,6 +44,11 @@ export class DeezerService {
     return res.data
   }
 
+  async albumTracks(id, page = 0, limit = 10) {
+    const res = await this.axiosRef.get(`${DEEZER_API.album}/${id}/tracks?limit=${limit}&index=${page * limit}`)
+    return res.data
+  }
+
   async artists(page = 0, limit = 10) {
     const res = await this.axiosRef.get(`${DEEZER_API.artists}?limit=${limit}&index=${page * limit}`)
     return res.data

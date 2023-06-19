@@ -1,6 +1,6 @@
 import { PipeTransform, BadRequestException, Injectable, ArgumentMetadata } from '@nestjs/common'
 
-const validTypes = ['album', 'artist', 'history', 'playlist', 'podcast', 'radio', 'track', 'user']
+const validTypes = ['album', 'artist', 'track']
 
 @Injectable()
 export class SearchDataType implements PipeTransform {

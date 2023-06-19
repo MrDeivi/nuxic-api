@@ -66,6 +66,11 @@ export class DeezerController {
     return this.deezerService.album(id)
   }
 
+  @Get('album/:id?/tracks')
+  albumTracks(@Query() pagination: PaginationDto, @Param('id', ParseIntPipe) id) {
+    return this.deezerService.albumTracks(id, pagination.page, pagination.limit)
+  }
+
   @Get('track/:id')
   track(@Param('id', ParseIntPipe) id) {
     return this.deezerService.track(id)
