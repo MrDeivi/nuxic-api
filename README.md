@@ -26,3 +26,7 @@ $ npm run start:dev
 # production mode
 $ npm run start:prod
 ```
+
+## Cosiderations
+Deezer API is blocked for some countries. Be sure you can access 
+<a href="https://deezer.com/" style="color: #65F7F1">Deezer</a>.
