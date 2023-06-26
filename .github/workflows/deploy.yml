@@ -33,6 +33,6 @@ jobs:
 
     - name: Connect and deploy
       run: | 
-        ssh ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} "bash nuxic-api.sh"
+        ssh ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} "bash bash/nuxic-api.sh"
     - name: Cleanup
       run: rm -rf ~/.ssh
