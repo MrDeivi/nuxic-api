@@ -11,14 +11,14 @@ import { DeezerModule } from './deezer/deezer.module'
     // Cache module to cache API requests
     CacheModule.register({
       isGlobal: true,
-      ttl: 1000 * 60 * 30, // 30 minutes
+      ttl: 1000 * 60 * 60, // 1 hour
       max: 10000, // maximum number of items in cache
     }),
 
     // Rate limit module
     ThrottlerModule.forRoot({
       ttl: 60,
-      limit: 60,
+      limit: 20,
     }),
   ],
   controllers: [],
