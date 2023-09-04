@@ -3,7 +3,6 @@ import { Controller, Get, Param, ParseIntPipe, Query, UseInterceptors } from '@n
 import { DeezerService } from './deezer.service'
 import { PaginationDto } from './dto'
 import { ArtistDataType } from './validators/artistType.pipe'
-import { RadioDataType } from './validators/radioType.pipe'
 import { SearchDataType } from './validators/searchType.pipe'
 
 @Controller('deezer')

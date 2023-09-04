@@ -1,6 +1,6 @@
 import { Injectable, Logger } from '@nestjs/common'
 import { HttpService } from '@nestjs/axios'
-import { DEEZER_API } from 'src/constants'
+import { DEEZER_API } from '../constants'
 import { PaginationDto } from './dto'
 
 @Injectable()
