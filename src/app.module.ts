@@ -15,11 +15,13 @@ import { DeezerModule } from './deezer/deezer.module'
       max: 10000, // maximum number of items in cache
     }),
 
-    // Rate limit module
-    ThrottlerModule.forRoot({
-      ttl: 60,
-      limit: 20,
-    }),
+    // Rate limit module 100 request per hour
+    ThrottlerModule.forRoot([
+      {
+        ttl: 3600000,
+        limit: 100,
+      },
+    ]),
   ],
   controllers: [],
   providers: [
