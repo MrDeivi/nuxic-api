@@ -15,7 +15,6 @@ export class BlacklistedIpInterceptor implements NestInterceptor {
 
   intercept(context: ExecutionContext, next: CallHandler): Observable<any> {
     const request: Request = context.switchToHttp().getRequest()
-    console.log(request.rawHeaders)
     const header = request.get('x-forwarded-for')
     const clientIp = header ?? request.ip
 
