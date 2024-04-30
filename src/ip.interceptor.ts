@@ -15,10 +15,12 @@ export class BlacklistedIpInterceptor implements NestInterceptor {
 
   intercept(context: ExecutionContext, next: CallHandler): Observable<any> {
     const request: Request = context.switchToHttp().getRequest()
-    const clientIp = request.ip
+    console.log(request.rawHeaders)
+    const header = request.get('x-forwarded-for')
+    const clientIp = header ?? request.ip
 
     const isBlocked = this.blacklistedIps.includes(clientIp)
-    Logger.verbose(`ip: ${clientIp}  isBlocked: ${isBlocked}`)
+    console.log(`ip: ${clientIp}  isBlocked: ${isBlocked}`)
 
     if (isBlocked) {
       throw new ForbiddenException('Access Denied')
