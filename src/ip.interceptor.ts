@@ -1,7 +1,7 @@
-import { Injectable, NestInterceptor, ExecutionContext, CallHandler, ForbiddenException, Logger } from '@nestjs/common'
-import { Observable } from 'rxjs'
-import { Request } from 'express'
+import { CallHandler, ExecutionContext, HttpException, HttpStatus, Injectable, NestInterceptor } from '@nestjs/common'
 import * as dotenv from 'dotenv'
+import { Request } from 'express'
+import { Observable } from 'rxjs'
 
 dotenv.config()
 
@@ -23,7 +23,10 @@ export class BlacklistedIpInterceptor implements NestInterceptor {
     console.log(`ip: ${clientIp}  isBlocked: ${isBlocked}`)
 
     if (isBlocked) {
-      throw new ForbiddenException('Access Denied')
+      throw new HttpException(
+        { statusCode: HttpStatus.TOO_MANY_REQUESTS, error: 'Too Many Requests', message: 'Rate limit exceeded.' },
+        429,
+      )
     }
 
     return next.handle()
