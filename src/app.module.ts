@@ -18,8 +18,14 @@ import { DeezerModule } from './deezer/deezer.module'
     // Rate limit module 100 request per hour
     ThrottlerModule.forRoot([
       {
+        name: 'short',
+        ttl: 1000 * 60,
+        limit: 30,
+      },
+      {
+        name: 'long',
         ttl: 3600000,
-        limit: 100,
+        limit: 200,
       },
     ]),
   ],
