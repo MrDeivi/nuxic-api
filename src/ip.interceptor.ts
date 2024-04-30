@@ -1,4 +1,4 @@
-import { Injectable, NestInterceptor, ExecutionContext, CallHandler, ForbiddenException } from '@nestjs/common'
+import { Injectable, NestInterceptor, ExecutionContext, CallHandler, ForbiddenException, Logger } from '@nestjs/common'
 import { Observable } from 'rxjs'
 import { Request } from 'express'
 import * as dotenv from 'dotenv'
@@ -17,7 +17,10 @@ export class BlacklistedIpInterceptor implements NestInterceptor {
     const request: Request = context.switchToHttp().getRequest()
     const clientIp = request.ip
 
-    if (this.blacklistedIps.includes(clientIp)) {
+    const isBlocked = this.blacklistedIps.includes(clientIp)
+    Logger.verbose(`ip: ${clientIp}  isBlocked: ${isBlocked}`)
+
+    if (isBlocked) {
       throw new ForbiddenException('Access Denied')
     }
 
