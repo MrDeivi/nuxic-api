@@ -15,11 +15,11 @@ import { Observable } from 'rxjs'
 
 dotenv.config()
 
-const REQUEST_LIMIT = parseInt(`${process.env.REQUEST_LIMIT ?? 50}`)
+const REQUEST_LIMIT = parseInt(`${process.env.REQUEST_LIMIT ?? 30}`)
 
 @Injectable()
 export class BlacklistedIpInterceptor implements NestInterceptor {
-  @Inject(CACHE_MANAGER) private cacheManager: Cache
+  constructor(@Inject(CACHE_MANAGER) private cacheManager: Cache) {}
 
   async intercept(context: ExecutionContext, next: CallHandler): Promise<Observable<any>> {
     const request: Request = context.switchToHttp().getRequest()

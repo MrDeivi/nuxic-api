@@ -4,6 +4,7 @@ import helmet from 'helmet'
 import { urlencoded, json } from 'express'
 import { ValidationPipe, Logger } from '@nestjs/common'
 import { BlacklistedIpInterceptor } from './ip.interceptor'
+import { CACHE_MANAGER } from '@nestjs/cache-manager'
 
 declare const module: any
 
@@ -14,7 +15,8 @@ async function bootstrap() {
   app.use(json({ limit: '50mb' }))
   app.use(urlencoded({ extended: true, limit: '50mb' }))
 
-  app.useGlobalInterceptors(new BlacklistedIpInterceptor())
+  const cacheManager = await app.get(CACHE_MANAGER)
+  app.useGlobalInterceptors(new BlacklistedIpInterceptor(cacheManager))
 
   app.useGlobalPipes(new ValidationPipe({ transform: true }))
 
