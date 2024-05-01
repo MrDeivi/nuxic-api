@@ -15,7 +15,7 @@ import { DeezerModule } from './deezer/deezer.module'
       max: 10000, // maximum number of items in cache
     }),
 
-    // Rate limit module
+    // Rate limit
     ThrottlerModule.forRoot([
       // 30 requests per minute
       {
@@ -23,11 +23,11 @@ import { DeezerModule } from './deezer/deezer.module'
         ttl: 1000 * 60,
         limit: 30,
       },
-      // and 500 requests per hour
+      // and 100 requests per day
       {
-        name: 'medium',
-        ttl: 1000 * 60 * 60,
-        limit: 500,
+        name: 'large',
+        ttl: 1000 * 60 * 60 * 24,
+        limit: 100,
       },
     ]),
   ],
