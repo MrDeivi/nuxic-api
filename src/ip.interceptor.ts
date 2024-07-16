@@ -15,7 +15,7 @@ import { Observable } from 'rxjs'
 
 dotenv.config()
 
-const REQUEST_LIMIT = parseInt(`${process.env.REQUEST_LIMIT ?? 20}`)
+const REQUEST_LIMIT = parseInt(`${process.env.REQUEST_LIMIT ?? 50}`)
 
 @Injectable()
 export class BlacklistedIpInterceptor implements NestInterceptor {
