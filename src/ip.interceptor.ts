@@ -15,7 +15,7 @@ import { Observable } from 'rxjs'
 
 dotenv.config()
 
-const REQUEST_LIMIT = parseInt(`${process.env.REQUEST_LIMIT ?? 30}`)
+const REQUEST_LIMIT = parseInt(`${process.env.REQUEST_LIMIT ?? 20}`)
 
 @Injectable()
 export class BlacklistedIpInterceptor implements NestInterceptor {
@@ -26,7 +26,7 @@ export class BlacklistedIpInterceptor implements NestInterceptor {
     const header = request.get('x-forwarded-for')
     const clientIp = header ?? request.ip
 
-    const { success, count } = await rateLimitRequest(clientIp, this.cacheManager)
+    const { success, count } = await rateLimit(clientIp, this.cacheManager)
     console.log(`ip: ${clientIp}  isBlocked: ${!success} count: ${count}`)
 
     if (!success) {
@@ -40,25 +40,9 @@ export class BlacklistedIpInterceptor implements NestInterceptor {
   }
 }
 
-export async function rateLimitRequest(ip: string, cacheManager) {
-  if (!ip) return { success: false }
-
-  const { success, count } = await limit(ip, cacheManager)
-
-  console.log(`isBlocked: ${!success} ip: ${ip} count: ${count}`)
-
-  const error = success
-    ? null
-    : new Response('You have reached your request limit.', {
-        status: 429,
-      })
-
-  return { success, error, count }
-}
-
 const blackList: string[] = []
 
-async function limit(ip: string | undefined, cacheManager: Cache): Promise<{ success: boolean; count?: number }> {
+async function rateLimit(ip: string | undefined, cacheManager: Cache): Promise<{ success: boolean; count?: number }> {
   if (!ip) return { success: false }
 
   const requests: number = (await cacheManager.get(ip)) ?? 0
