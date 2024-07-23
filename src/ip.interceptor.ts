@@ -26,15 +26,15 @@ export class BlacklistedIpInterceptor implements NestInterceptor {
     const header = request.get('x-forwarded-for')
     const clientIp = header ?? request.ip
 
-    const { success, count } = await rateLimit(clientIp, this.cacheManager)
-    console.log(`ip: ${clientIp}  isBlocked: ${!success} count: ${count}`)
+    // const { success, count } = await rateLimit(clientIp, this.cacheManager)
+    // console.log(`ip: ${clientIp}  isBlocked: ${!success} count: ${count}`)
 
-    if (!success) {
-      throw new HttpException(
-        { statusCode: HttpStatus.TOO_MANY_REQUESTS, error: 'Too Many Requests', message: 'Rate limit exceeded.' },
-        429,
-      )
-    }
+    // if (!success) {
+    //   throw new HttpException(
+    //     { statusCode: HttpStatus.TOO_MANY_REQUESTS, error: 'Too Many Requests', message: 'Rate limit exceeded.' },
+    //     429,
+    //   )
+    // }
 
     return next.handle()
   }
